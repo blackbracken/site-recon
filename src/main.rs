@@ -1,10 +1,10 @@
-use site_recon::get_news;
+use site_recon::get;
 
 #[tokio::main]
 async fn main() -> reqwest::Result<()> {
     println!("Hello, world!");
 
-    let res = get_news().await;
+    let res = get().await;
     println!("{:#?}", res);
 
     Ok(())
