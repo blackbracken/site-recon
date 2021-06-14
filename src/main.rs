@@ -9,8 +9,8 @@ struct ValorantNews {
 const URL_ROOT: &str = "https://playvalorant.com";
 const URL_NEWS: &str = "https://playvalorant.com/ja-jp/news";
 
-fn get_news() -> Result<Vec<ValorantNews>> {
-    let doc = reqwest::blocking::get(URL_NEWS)?.text()?;
+async fn get_news() -> Result<Vec<ValorantNews>> {
+    let doc = reqwest::get(URL_NEWS).await?.text().await?;
 
     let pat = easy_scraper::Pattern::new(
         // classが自動生成によるものに見え, 頻繁に変更されないかweb-archiveで確認したが, 現状公開当初から変更されていない
@@ -28,16 +28,19 @@ fn get_news() -> Result<Vec<ValorantNews>> {
 
     Ok(result
         .into_iter()
-        .map(|m| ValorantNews {
-            title: m["title"].to_owned(),
-            url: URL_ROOT.to_owned() + m["url"].to_owned().as_ref(),
+        .map(|map| ValorantNews {
+            title: map["title"].to_owned(),
+            url: URL_ROOT.to_owned() + map["url"].to_owned().as_ref(),
         })
         .collect())
 }
 
-fn main() {
+#[tokio::main]
+async fn main() -> Result<()> {
     println!("Hello, world!");
 
-    let res = get_news();
+    let res = get_news().await;
     println!("{:#?}", res);
+
+    Ok(())
 }
