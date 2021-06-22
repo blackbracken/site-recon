@@ -2,6 +2,7 @@ use async_trait::async_trait;
 use chrono::prelude::*;
 
 pub mod valorant;
+pub mod apex;
 
 #[async_trait]
 pub trait Syndication {

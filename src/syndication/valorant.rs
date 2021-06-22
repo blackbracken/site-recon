@@ -1,7 +1,6 @@
 use crate::syndication::{Entry, Syndication};
 use async_trait::async_trait;
 
-
 pub struct ValorantSyndication;
 
 const URL_ROOT: &str = "https://playvalorant.com";

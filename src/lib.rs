@@ -4,7 +4,7 @@ use reqwest::Result;
 pub(crate) mod syndication;
 
 pub async fn get() -> Result<Entry> {
-    let x = crate::syndication::valorant::ValorantSyndication::get_latest_entry().await?;
+    let x = crate::syndication::apex::ApexSyndication::get_latest_entry().await?;
 
     Ok(x)
 }
